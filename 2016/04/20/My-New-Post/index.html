@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="package com.emodou.teacher.emodouteacher.util;
+import com.emodou.teacher.emodouteacher.entity.ClassManager;
+import org.litepal.crud.DataSupport;
+import java.util.List;
+/**
+
+Created by gfdyktl on 2015/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/04/20/My-New-Post/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="package com.emodou.teacher.emodouteacher.util;
+import com.emodou.teacher.emodouteacher.entity.ClassManager;
+import org.litepal.crud.DataSupport;
+import java.util.List;
+/**
+
+Created by gfdyktl on 2015/">
+<meta property="og:updated_time" content="2016-04-20T08:37:38.492Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="package com.emodou.teacher.emodouteacher.util;
+import com.emodou.teacher.emodouteacher.entity.ClassManager;
+import org.litepal.crud.DataSupport;
+import java.util.List;
+/**
+
+Created by gfdyktl on 2015/">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-My-New-Post" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/20/My-New-Post/" class="article-date">
+  <time datetime="2016-04-20T08:35:00.100Z" itemprop="datePublished">2016-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>package com.emodou.teacher.emodouteacher.util;</p>
+<p>import com.emodou.teacher.emodouteacher.entity.ClassManager;</p>
+<p>import org.litepal.crud.DataSupport;</p>
+<p>import java.util.List;</p>
+<p>/**</p>
+<ul>
+<li><p>Created by gfdyktl on 2015/12/2.<br>*/<br>public class ClassManagerUtil {<br> public static ClassManager CreateNewManager(String userid, String bookid, String classid, String type){</p>
+<pre><code>ClassManager classManager = new ClassManager();
+classManager.setUserid(userid);
+classManager.setType(type);
+classManager.setBookid(bookid);
+classManager.setClassid(classid);
+classManager.setState(0);
+classManager.setDownloadstate(0);
+classManager.setProgress(&quot;0&quot;);
+classManager.setHomeworkState(0);
+classManager.setLocalUrl(&quot;&quot;);
+classManager.setZipUrl(&quot;&quot;);
+classManager.setScore(&quot;0&quot;);
+classManager.save();
+return classManager;
+</code></pre><p> }</p>
+<p> public static ClassManager initManager(String userid, String bookid, String classid, String type){</p>
+<pre><code>List&lt;ClassManager&gt; mSpeakManagerList = DataSupport.where(&quot;bookid =? and classid =? and userid&quot; +
+        &quot; =? &quot;, bookid, classid, userid).find(ClassManager.class);
+if (mSpeakManagerList != null &amp;&amp; mSpeakManagerList.size() != 0) {
+    return  mSpeakManagerList.get(0);
+} else {
+    return ClassManagerUtil.CreateNewManager(userid, bookid, classid, type);
+}
+</code></pre><p> }<br>}</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/20/My-New-Post/" data-id="cin8mp51g0001q8u351cd13th" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/20/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/20/My-New-Post/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/20/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 IceBear<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
