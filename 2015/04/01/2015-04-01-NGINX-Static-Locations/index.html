@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Static NGINX Locations · Hexo</title><meta name="description" content="Static NGINX Locations - IceBear"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="http://fonts.useso.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://github.com/Icebearr" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Static NGINX Locations</h1><div class="post-time">Apr 1, 2015</div><div class="post-content"><p>I try to get a lot of mileage out of the single AWS t2.micro instance I keep running,<br>which means I have many different projects running on different paths on a single server.  Everytime I finish a project, I have to relearn how to add new “locations” (paths) to the NGINX virtual host.</p>
+<p>I was really frustrated when I couldn’t figure out how to add a static location for the Jekyll<br>website I created for the game I’m developing.  I kept trying to do something like this:</p>
+<pre><code>location / {
+  root /home/ubuntu/personal-website;
+}
+location /array {
+  root /home/ubuntu/array-website/_site;
+}
+</code></pre><p>But everytime I tried to visit [<a href="http://ptsteadman.com/array" target="_blank" rel="external">http://ptsteadman.com/array</a>], I would get a 404 error.<br>I tried a bunch of things: I changed the “root” of the the <code>/</code> location to my game website, and it worked.  But no matter what I did, after using <code>sudo service nginx restart</code>,<br>trying to visit the <code>/array</code> location still resulted in a 404.  I couldn’t add the new route/location.</p>
+<p>Eventually, I realized that the text after the slash in the location is the directory that<br>NGINX will try to find in the “root” location.  So, <code>location /array</code> will look for the directory (or file)<br><code>array</code> in whatever directory “root” is set to.  So, I created a symlink to the root of my<br>static jekyll site with the command <code>ln -s /home/ubuntu/array-website/_site /home/ubuntu/array</code>, and<br>then I could set up my nginx config file in <code>sites-enabled</code> as below:</p>
+<pre><code>location / {
+  root /home/ubuntu/personal-website;
+}
+location /array {
+  root /home/ubuntu;
+}
+</code></pre><p>I think this stuff is all pretty obvious to someone who really understands NGINX and file serving,<br>but I only touch NGINX when I’ve finished a project and feel impatient to deploy.  I think it’s very confusing<br>that NGINX seems to handle paths differently between <code>/</code> locations and and <code>/foo</code> locations,<br>but a real understanding of NGINX might clear things up.</p>
+</div></article></div></section><footer><div class="paginator"><a href="/2015/04/05/2015-04-05-Lookup-on-Page/" class="prev">PREV</a><a href="/2015/03/23/2015-03-23-Make-VS-Insert-Spaces/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = '[object Object]';
+var disqus_identifier = '2015/04/01/2015-04-01-NGINX-Static-Locations/';
+var disqus_title = 'Static NGINX Locations';
+var disqus_url = 'http://yoursite.com/2015/04/01/2015-04-01-NGINX-Static-Locations/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//[object Object].disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2016 <a href="http://yoursite.com">IceBear</a>, unless otherwise noted.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
